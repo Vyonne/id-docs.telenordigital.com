@@ -2,28 +2,28 @@
 <html class="docs-html">
 <head>
   <meta charset="utf-8">
-  <title>Web application integration - CONNECT ID Documentation</title>
-    <meta name="description" content="Detail information for web application integration.">
+  <title>Use Telenor ID as ID provider - CONNECT ID Documentation</title>
+    <meta name="description" content="Detailed information about switching between ID provider brands">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Twitter Card data -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Web application integration - CONNECT ID Documentation">
-  <meta name="twitter:description" content="Detail information for web application integration.">
+  <meta name="twitter:title" content="Use Telenor ID as ID provider - CONNECT ID Documentation">
+  <meta name="twitter:description" content="Detailed information about switching between ID provider brands">
   <meta name="twitter:image" content="https://telenordigital.github.io/img/og_image.jpg">
 
   <!-- Open Graph data -->
-  <meta property="og:title" content="Web application integration - CONNECT ID Documentation" />
+  <meta property="og:title" content="Use Telenor ID as ID provider - CONNECT ID Documentation" />
   <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://telenordigital.github.io/integrate-web-app.html" />
+  <meta property="og:url" content="https://telenordigital.github.io/integrate-android-sdk/use-telenorid-as-id-provider.html" />
   <meta property="og:image" content="https://telenordigital.github.io/img/og_image.jpg" />
-  <meta property="og:description" content="Detail information for web application integration." />
+  <meta property="og:description" content="Detailed information about switching between ID provider brands" />
   <meta property="og:site_name" content="CONNECT ID Documentation" />
 
-  <link rel="stylesheet" type="text/css" href="style/style.css">
-    <link rel="stylesheet" type="text/css" href="script/swagger-ui/swagger-ui-docs-preset.css">
+  <link rel="stylesheet" type="text/css" href="../style/style.css">
+    <link rel="stylesheet" type="text/css" href="../script/swagger-ui/swagger-ui-docs-preset.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link id="searchIndex" href="index.json" rel="preload" as="fetch">
+  <link id="searchIndex" href="../index.json" rel="preload" as="fetch">
 </head>
 <body class="docs-body">
   <div id="docs-topbar" class="docs-topbar no-print">
@@ -189,88 +189,49 @@
   </div>
   <div id="barba-wrapper" class="docs-wrapper">
     <div class="docs-content barba-container">
-      <h1>Web application integration</h1>
+      <h1>Use Telenor ID as ID provider</h1>
         <ol class="docs-breadcrumbs tn-breadcrumbs visible-desktop">
                 <li class="tn-breadcrumb">
                     <a href="/id-docs.telenordigital.com/">Home</a>
                 </li>
-            <li class="tn-breadcrumb tn-breadcrumb--active">Web application integration</li>
+              <li class="tn-breadcrumb">
+                      <a href="/id-docs.telenordigital.com/integrate-android-sdk.html">Android SDK integration</a>
+              </li>
+            <li class="tn-breadcrumb tn-breadcrumb--active">Use Telenor ID as ID provider</li>
         </ol>
-      <h2 id="integrating-towards-the-oauth-server-">Integrating towards the OAuth server.</h2>
-<ol>
-<li><p>To begin, we need you to register client details with us so that we can use these details to
-manage how CONNECT will interact with your client. The list of details required can be found on
-the <a href="get-started/client-registration-details.html">client registration details page</a>.</p>
-</li>
-<li><p>You will have to decide on a redirect URI to be used to redirect users back to your client
-after authentication has been completed in CONNECT, see
-<a href="get-started/client-registration-details.html#choosing-a-redirect-uri">choosing a redirect URI</a> for details.</p>
-</li>
-<li><p>Once the client details are finalised, you will receive a client_id, client_secret, and a
-series of cURL commands from Telenor Digital, which can be used to test responses from the
-<a href="authorization-and-authentication.html">authorization server</a> and to get
-<a href="user-data.html">CONNECT ID user data</a> via the OAuth access token APIs.</p>
-</li>
-<li><p>The client_id and client_secret are required to perform HTTP Basic authentication for
-confidential clients towards the authorization server
-(<a href="http://docs.telenordigital.com/apis/connect/id/authentication.html#authorization-server-token-post">/oauth/token</a> and
-<a href="http://docs.telenordigital.com/apis/connect/id/authentication.html#authorization-server-revoke-token">/oauth/revoke</a>
-endpoints only).
-Public clients will only receive a client_id.</p>
-</li>
-<li><p>When the user wishes to access the specific page that requires them to be logged in, they must
-be redirected via the authorization server’s user authorization endpoint
-<a href="http://docs.telenordigital.com/apis/connect/id/authentication.html#authorization-server-user-authorization">/oauth/authorize</a>.
-The parameters you send will contain the scope that will be used by you, as well as the redirect
-URI, where the user will end up after finishing the login process. A state field is also present
-that must contain a cryptographically random string, which you must use to
-<a href="http://docs.telenordigital.com/connect/id/client_security_measures.html#protect-client-callback-endpoint-against-csrf-attacks">validate</a>
-that the response matches the original request.</p>
-</li>
-<li><p>A list of scope values can be found at the <a href="authorization-and-authentication/scope.html">scope page</a>.</p>
-</li>
-<li><p>Once the user has logged in with CONNECT they will be redirected to the redirect URI you have
-specified, and an authorization code parameter will be included.</p>
-</li>
-<li><p>If there is an error, the redirect to the redirect URI will include an error parameter instead.</p>
-</li>
-<li><p>The authorization code must be exchanged for tokens by sending a request to the token endpoint
-<a href="http://docs.telenordigital.com/apis/connect/id/authentication.html#authorization-server-token-post">/oauth/token</a>.
-In return, you will get an access and a refresh token, and potentially an ID token if
-the <a href="authorization-and-authentication/scope.html#oauth-resources">openid</a> scope was requested.</p>
-</li>
-<li><p>The access token can be used to access the user’s protected resources on resource servers and
-needs to be <a href="authorization-and-authentication.html#access-token-validation">validated</a> in the process.
-Access tokens have a short life and when they expire, refresh tokens can be used to
-<a href="authorization-and-authentication.html#refresh-token-flow">get a new access and refresh token</a>.
-To do this, follow the refresh token instructions towards the token endpoint
-<a href="http://docs.telenordigital.com/apis/connect/id/authentication.html#authorization-server-token-post">/oauth/token</a>.</p>
-</li>
-<li><p>The <a href="authorization-and-authentication/id-token.html">ID token</a> can be used to validate the authentication
-and verify the identity of the user.</p>
-</li>
-<li><p>How to log a user out is depending on whether the client has been configured with
-<a href="authorization-and-authentication/sso.html">single sign-on (SSO)</a> functionality.
-Logging out might involve sending a request to the revoke token endpoint
-<a href="http://docs.telenordigital.com/apis/connect/id/authentication.html#authorization-server-revoke-token">/oauth/revoke</a>
-and potentially also accessing the logout endpoint
-<a href="http://docs.telenordigital.com/apis/connect/id/authentication.html#authorization-server-user-logout">/oauth/logout</a>.
-See the <a href="authorization-and-authentication/sso.html#logout">description of logout</a> on the SSO page for details.</p>
-</li>
-<li><p>Example code for a client can be found at the
-<a href="authorization-and-authentication/authorization-examples.html">authorization examples page</a>.</p>
-</li>
-</ol>
+      <h2 id="multiple-id-providers">Multiple ID providers</h2>
+<p>Starting from version 2.1, the SDK allows to choose between multiple ID providers. Currently supported providers are CONNECT ID and Telenor ID. If you are updating to version 2.1 from older versions without any code change - CONNECT ID will be used as a default ID provider.</p>
+<h2 id="selecting-new-id-provider">Selecting new ID provider</h2>
+<p>When initializing the SDK, you must select an ID provider that was decided for your country. You should use the <code>IdProvider</code> class for that purpose. </p>
+<h5 id="important-note">Important note</h5>
+<p>You cannot use multiple ID providers at the same time. Our infrastructure allows only for one ID provider to be used in each country, which means that all clients in one country need to use the same provider. Currently supported providers are CONNECT ID and Telenor ID. During the fall, CONNECT ID will be disabled for all countries except Norway.</p>
+<pre><code class="hljs java">ConnectSdk.sdkInitialize(getApplicationContext(), IdProvider.TELENOR_ID, <span class="hljs-keyword">true</span>);</code></pre>
+
+<h2 id="using-telenor-id-as-an-id-provider">Using Telenor ID as an ID provider</h2>
+<p>While using Telenor ID as an ID provider, we require you to follow a new style guideline. You have to use <code>@style/ConnectTheme.TelenorId</code> as a default style for <code>ConnectLoginButton</code>.</p>
+<p>The full minimum code for the button will look like this:</p>
+<pre><code class="hljs XML"><span class="hljs-tag">&lt;<span class="hljs-name">com.telenor.connect.ui.ConnectLoginButton</span>
+        <span class="hljs-attr">android:id</span>=<span class="hljs-string">"@+id/login_button"</span>
+        <span class="hljs-attr">android:layout_width</span>=<span class="hljs-string">"wrap_content"</span>
+        <span class="hljs-attr">android:layout_height</span>=<span class="hljs-string">"wrap_content"</span>
+        <span class="hljs-attr">android:theme</span>=<span class="hljs-string">"@style/ConnectTheme.TelenorId"</span>
+        /&gt;</span></code></pre>
+
+<p>You can try it out in the example application.</p>
+<h2 id="adding-what-is-telenor-id-page">Adding “What is Telenor ID” page</h2>
+<p><code>What is Telenor ID page</code>, is a link below the sign-in button on the client’s sign-in page. Through user research, we have found that this link is important to include to explain to the users what Telenor ID is and why they need to use it to sign in to your app.</p>
+<p>Starting from version 2.1, the SDK adds a new view component for displaying the description about Telenor ID. To enable it, use <code>com.telenor.connect.ui.ConnectAboutTextView</code> in your layout files.</p>
 
       <div class="lesson-nav">
+          <a class="prev" href="/id-docs.telenordigital.com/integrate-android-sdk/go-to-production.html">&larr; Go to production</a>
       </div>
-        <a class="docs-edit-btn no-print" href="https://github.com/TelenorDigital/id-docs.telenordigital.com/edit/master/docs/integrate-web-app.md" target="_blank">Edit this page</a>
+        <a class="docs-edit-btn no-print" href="https://github.com/TelenorDigital/id-docs.telenordigital.com/edit/master/docs/integrate-android-sdk/use-telenorid-as-id-provider.md" target="_blank">Edit this page</a>
     </div>
   </div>
-    <script src="script/swagger-ui/swagger-ui-bundle.js" ></script>
-    <script src="script/swagger-ui/swagger-ui-docs-preset.js" ></script>
-  <script src="script/vendor.js" ></script>
-  <script src="script/script.js" ></script>
+    <script src="../script/swagger-ui/swagger-ui-bundle.js" ></script>
+    <script src="../script/swagger-ui/swagger-ui-docs-preset.js" ></script>
+  <script src="../script/vendor.js" ></script>
+  <script src="../script/script.js" ></script>
   <script async src='https://www.google-analytics.com/analytics.js'></script>
 </body>
 </html>

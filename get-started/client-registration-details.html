@@ -10,20 +10,20 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Required registration details - CONNECT ID Documentation">
   <meta name="twitter:description" content="What we need for you to register with us">
-  <meta name="twitter:image" content="https://telenordigital.github.io/id-docs.telenordigital.com/img/og_image.jpg">
+  <meta name="twitter:image" content="https://telenordigital.github.io/img/og_image.jpg">
 
   <!-- Open Graph data -->
   <meta property="og:title" content="Required registration details - CONNECT ID Documentation" />
   <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://telenordigital.github.io/id-docs.telenordigital.com/get-started/client-registration-details.html" />
-  <meta property="og:image" content="https://telenordigital.github.io/id-docs.telenordigital.com/img/og_image.jpg" />
+  <meta property="og:url" content="https://telenordigital.github.io/get-started/client-registration-details.html" />
+  <meta property="og:image" content="https://telenordigital.github.io/img/og_image.jpg" />
   <meta property="og:description" content="What we need for you to register with us" />
   <meta property="og:site_name" content="CONNECT ID Documentation" />
 
-  <link rel="stylesheet" type="text/css" href="/id-docs.telenordigital.com/style/style.css">
-    <link rel="stylesheet" type="text/css" href="/id-docs.telenordigital.com/script/swagger-ui/swagger-ui-docs-preset.css">
+  <link rel="stylesheet" type="text/css" href="../style/style.css">
+    <link rel="stylesheet" type="text/css" href="../script/swagger-ui/swagger-ui-docs-preset.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link id="searchIndex" href="/id-docs.telenordigital.com/index.json" rel="preload" as="fetch">
+  <link id="searchIndex" href="../index.json" rel="preload" as="fetch">
 </head>
 <body class="docs-body">
   <div id="docs-topbar" class="docs-topbar no-print">
@@ -120,6 +120,9 @@
                             <li class="docs-nav__li">
                                       <a href="/id-docs.telenordigital.com/integrate-android-sdk/go-to-production.html" class="docs-nav__item">Go to production</a>
                             </li>
+                            <li class="docs-nav__li">
+                                      <a href="/id-docs.telenordigital.com/integrate-android-sdk/use-telenorid-as-id-provider.html" class="docs-nav__item">Use Telenor ID as ID provider</a>
+                            </li>
                     </ul>
                 </li>
                 <li class="docs-nav__li docs-nav__li--subgroup">
@@ -206,7 +209,7 @@ properly. The information we need to get about your client is listed below.</p>
 <li>Product/service name.</li>
 <li>Descriptive user-facing name for the product/service.
 This will be used in communication with end users, e.g. on the OAuth consent page or when
-the end user is managing permission in the <a href="http://docs.telenordigital.com/myaccount/index.html">My CONNECT account</a> client.
+the end user is managing permission in the <a href="http://docs.telenordigital.com/connect/myaccount/">My CONNECT account</a> client.
 Different clients should not have the same descriptive name.</li>
 <li>Detailed description of the product/service.</li>
 <li>Email address for technical contact.</li>
@@ -218,7 +221,7 @@ one particular platform or device).</li>
 <li>OAuth client type: Confidential (The client is able to keep credentials confidential, e.g. a client running on a web server. Please see
 <a href="https://tools.ietf.org/html/rfc6749#section-2.1">section 2.1 in the OAuth specification (RFC 6749)</a>
 for general information.</li>
-<li><a href="../authorization-and-authentication/scope.html">Scope values</a> to be requested by the client.</li>
+<li><a href="/id-docs.telenordigital.com/authorization-and-authentication/scope.html">Scope values</a> to be requested by the client.</li>
 <li>Client callback redirect URI to be redirected to after login. See the description of the
 redirect_uri parameter for the
 <a href="http://docs.telenordigital.com/apis/connect/id/authentication.html#authorization-server-user-authorization">/authorize</a>
@@ -226,7 +229,7 @@ endpoint. Also, see the section below on <a href="#choosing-a-redirect-uri">choo
 </ul>
 <p>Optional:</p>
 <ul>
-<li>Whether to use the <a href="../authorization-and-authentication/sso.html">single sign-on (SSO)</a> solution in the authorization server.
+<li>Whether to use the <a href="/id-docs.telenordigital.com/authorization-and-authentication/sso.html">single sign-on (SSO)</a> solution in the authorization server.
 SSO should be used at least for web clients to increase user convenience, since users will
 typically not need to authenticate explicitly for every client.
 SSO might also be useful for native clients using browsers that are sharing cookies
@@ -245,7 +248,7 @@ The reason is that there are user experience issues with directing a browser to 
 from a native application:
 Because there is no user interaction before getting redirected back to the client for this flow,
 the user will typically notice that something happened in the browser, but not exactly what.</li>
-<li>Whether to use the <a href="../authorization-and-authentication.html#back-channel-logout">back-channel logout notification</a>
+<li>Whether to use the <a href="/id-docs.telenordigital.com/authorization-and-authentication.html#back-channel-logout">back-channel logout notification</a>
 functionality provided by the authorization server.
 If so, a back-channel logout URI for the client needs to be defined.
 The authorization server will send logout token requests to this URI when users are considered
@@ -256,7 +259,7 @@ Example: <code>https://&lt;client-specific-host&gt;/connect/backchannellogout</c
 <p>It is of course possible to update the information later on if there are any changes.</p>
 <h2 id="choosing-a-redirect-uri">Choosing a redirect URI</h2>
 <p>After successful authentication and authorization, the authorization server needs a way to
-<a href="../authorization-and-authentication.html">deliver the resulting authorization code</a> (or a potential error) to the
+<a href="/id-docs.telenordigital.com/authorization-and-authentication.html">deliver the resulting authorization code</a> (or a potential error) to the
 client. The authorization code can be delivered in several different ways, depending on the type of
 redirect URI used:</p>
 <ul>
@@ -265,7 +268,7 @@ client must be registered to listen on the custom URI scheme in the operating sy
 for a redirect to the client to work.</li>
 <li>A <strong>URL</strong> - for example <code>https://&lt;client-specific-host&gt;/connect/oauth2callback</code>.
 Note that HTTPS should be used for non-localhost URLs, ref the
-<a href="../authorization-and-authentication/client-security-measures.html">Client security measures document</a>.
+<a href="/id-docs.telenordigital.com/authorization-and-authentication/client-security-measures.html">Client security measures document</a>.
 This should be the preferred approach for web clients.
 Also, native clients that do not support custom URI schemes but can set up a web server
 without considerable configuration in the OS may use this approach.
@@ -297,10 +300,10 @@ used in production)</li>
         <a class="docs-edit-btn no-print" href="https://github.com/TelenorDigital/id-docs.telenordigital.com/edit/master/docs/get-started/client-registration-details.md" target="_blank">Edit this page</a>
     </div>
   </div>
-    <script src="/id-docs.telenordigital.com/script/swagger-ui/swagger-ui-bundle.js" ></script>
-    <script src="/id-docs.telenordigital.com/script/swagger-ui/swagger-ui-docs-preset.js" ></script>
-  <script src="/id-docs.telenordigital.com/script/vendor.js" ></script>
-  <script src="/id-docs.telenordigital.com/script/script.js" ></script>
+    <script src="../script/swagger-ui/swagger-ui-bundle.js" ></script>
+    <script src="../script/swagger-ui/swagger-ui-docs-preset.js" ></script>
+  <script src="../script/vendor.js" ></script>
+  <script src="../script/script.js" ></script>
   <script async src='https://www.google-analytics.com/analytics.js'></script>
 </body>
 </html>
